@@ -30,11 +30,9 @@ func (i instruction) apply(registers *map[string]int) {
 		break
 	}
 
-	for i, v := range *registers {
-		if v > largest {
-			log.Println(i, v)
-			largest = v
-		}
+	if (*registers)[i.register] > largest {
+		largest = (*registers)[i.register]
+		log.Println(i.register, (*registers)[i.register])
 	}
 }
 
