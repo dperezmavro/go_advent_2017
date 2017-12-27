@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"strconv"
 )
 
 var input map[string][]string
@@ -62,18 +61,22 @@ func getGroup(pid string) []string {
 func main() {
 
 	input = processInput(
-		readInput("inputTest"),
+		readInput("input"),
 	)
 
-	for i := 0; i < 7; i++ {
-		log.Println(i, getGroup(strconv.Itoa(i)))
+	// for i := 0; i < 7; i++ {
+	// 	log.Println(i, getGroup(strconv.Itoa(i)))
+	// }
+
+	groupCount := 0
+	for v := range input {
+		groups := getGroup(v)
+		groupCount++
+		log.Println(v, groups)
+		for _, g := range groups {
+			delete(input, g)
+		}
 	}
 
-	// for v := range input {
-	// 	groups := getGroup(v)
-	// 	log.Println(v, groups)
-	// 	// for _, g := range groups {
-	// 	// 	delete(input, g)
-	// 	// }
-	// }
+	log.Println("Number of groups found", groupCount)
 }
