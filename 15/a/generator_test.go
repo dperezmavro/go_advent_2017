@@ -89,3 +89,44 @@ func TestNextLower16(t *testing.T) {
 		}
 	}
 }
+
+func TestScore(t *testing.T) {
+	type test struct {
+		iterations int
+		score      uint
+	}
+
+	tests := []test{
+		test{
+			iterations: 1,
+			score:      0,
+		},
+		test{
+			iterations: 2,
+			score:      0,
+		},
+
+		test{
+			iterations: 3,
+			score:      1,
+		},
+		test{
+			iterations: 4,
+			score:      1,
+		},
+		test{
+			iterations: 5,
+			score:      1,
+		},
+	}
+
+	a := newGenerator(16807, 65)
+	b := newGenerator(48271, 8921)
+
+	for _, te := range tests {
+		score := getScore(a, b, te.iterations)
+		if score != te.score {
+			t.Errorf("Wanted %d, got %d for %d iterations\n", te.score, score, te.iterations)
+		}
+	}
+}
