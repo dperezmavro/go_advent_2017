@@ -64,10 +64,6 @@ func main() {
 		readInput("input"),
 	)
 
-	// for i := 0; i < 7; i++ {
-	// 	log.Println(i, getGroup(strconv.Itoa(i)))
-	// }
-
 	groupCount := 0
 	for v := range input {
 		groups := getGroup(v)
