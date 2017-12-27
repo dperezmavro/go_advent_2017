@@ -118,6 +118,10 @@ func TestScore(t *testing.T) {
 			iterations: 5,
 			score:      1,
 		},
+		test{
+			iterations: 40000001,
+			score:      588,
+		},
 	}
 
 	a := newGenerator(16807, 65)
