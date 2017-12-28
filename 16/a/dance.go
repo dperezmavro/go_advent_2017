@@ -6,6 +6,7 @@ type dance struct {
 	alphabet  []string
 	charToPos map[string]int
 	posToChar map[int]string
+	mod       int
 }
 
 func newDance(alp []string) dance {
@@ -21,6 +22,7 @@ func newDance(alp []string) dance {
 		alphabet:  alp,
 		charToPos: cToP,
 		posToChar: pToC,
+		mod:       len(alp),
 	}
 }
 
@@ -34,9 +36,8 @@ func (d *dance) sequence() string {
 }
 
 func (d *dance) spin(x int) {
-	mod := len(d.alphabet)
 	for k, v := range d.charToPos {
-		newIndex := (v + x) % mod
+		newIndex := (v + x) % d.mod
 		d.charToPos[k] = newIndex
 		d.posToChar[newIndex] = k
 	}
@@ -57,11 +58,12 @@ func (d *dance) partner(a, b string) {
 	pA := d.charToPos[a]
 	pB := d.charToPos[b]
 
-	d.posToChar[pA] = b
-	d.posToChar[pB] = a
-
 	d.charToPos[a] = pB
 	d.charToPos[b] = pA
+
+	d.posToChar[pB] = a
+	d.posToChar[pA] = b
+
 }
 
 func (d *dance) testMaps() {
