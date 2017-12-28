@@ -51,3 +51,12 @@ func TestPartner(t *testing.T) {
 		)
 	}
 }
+
+func TestRun(t *testing.T) {
+	want := "dcmlhejnifpokgba"
+	res := run("abcdefghijklmnop", "input")
+
+	if res != want {
+		t.Errorf("Got %s instead of %s", res, want)
+	}
+}
