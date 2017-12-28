@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"strconv"
 	"strings"
@@ -9,33 +8,38 @@ import (
 
 func main() {
 	alphabet := strings.Split("abcdefghijklmnop", "")
-	// alphabet := strings.Split("abcde", "")
 	actions := getActions("input")
+
+	// alphabet := strings.Split("abcde", "")
+	// actions := getActions("inputTest")
 	d := newDance(alphabet)
-	fmt.Println(d)
 
 	for _, action := range actions {
 
 		actionParts := strings.Split(action, "")
+		amounts := strings.Join(actionParts[1:], "")
 
 		switch actionParts[0] {
 		case "s":
-			spin, _ := strconv.Atoi(actionParts[1])
+
+			spin, _ := strconv.Atoi(amounts)
 			d.spin(spin)
 			break
 		case "x":
-			a, _ := strconv.Atoi(actionParts[1])
-			b, _ := strconv.Atoi(actionParts[3])
+			parts := strings.Split(amounts, "/")
+			a, _ := strconv.Atoi(parts[0])
+			b, _ := strconv.Atoi(parts[1])
 			d.exchange(a, b)
 			break
 		case "p":
-			d.partner(actionParts[1], actionParts[3])
+			parts := strings.Split(amounts, "/")
+			d.partner(parts[0], parts[1])
 			break
 		default:
 			log.Println("Unknown instruction ", actions)
 			break
 		}
 	}
-
-	fmt.Println(d.sequence())
+	d.testMaps()
+	log.Println("Sequence", d.sequence())
 }

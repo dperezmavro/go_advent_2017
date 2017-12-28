@@ -1,5 +1,7 @@
 package main
 
+import "log"
+
 type dance struct {
 	alphabet  []string
 	charToPos map[string]int
@@ -60,4 +62,14 @@ func (d *dance) partner(a, b string) {
 
 	d.charToPos[a] = pB
 	d.charToPos[b] = pA
+}
+
+func (d *dance) testMaps() {
+	for v, p := range d.charToPos {
+		if d.posToChar[p] != v {
+			log.Printf("charToPos[%s] = %d != posToChar[%d] = %s\n",
+				v, p, p, d.posToChar[p],
+			)
+		}
+	}
 }
